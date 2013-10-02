@@ -103,7 +103,7 @@ public class WordNode implements Trie.Node {
             System.exit(0);
         }
         if (this.nodes != null) {
-            c = Character.toLowerCase(c);
+//            c = Character.toLowerCase(c);
             int index = (int) c - (int) 'a';
             if (this.nodes[index] != null) {
                 return this.nodes[index];

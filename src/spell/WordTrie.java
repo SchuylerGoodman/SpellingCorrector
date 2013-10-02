@@ -76,7 +76,9 @@ public class WordTrie implements Trie {
     public WordNode find(String word) {
         char[] lWord = word.toLowerCase().toCharArray();
         WordNode currentNode = root;
-        for (char c : lWord) {
+//        for (char c : lWord) {
+        for (int i = 0; i < word.length(); i++) {
+            char c = Character.toLowerCase(word.charAt(i));
             if (currentNode.at(c) == null) {
                 return null;
             }

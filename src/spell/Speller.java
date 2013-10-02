@@ -92,6 +92,7 @@ public class Speller implements SpellCorrector {
             System.out.printf("Distance: %d Max Distance: %d\n", distance, maxDistance);
             similar.clear();
             similar = similar2;
+            System.out.printf("Set size: %d\n", similar.size());
         }
         if (maxString == null)
             throw new spell.SpellCorrector.NoSimilarWordFoundException();
