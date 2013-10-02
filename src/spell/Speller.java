@@ -63,15 +63,17 @@ public class Speller implements SpellCorrector {
 //        System.out.println(this.trie.toString());
         Set<String> similar = new TreeSet<>();
         similar.add(inputWord);
+        int c = 0;
         while (done == false) {
             distance++;
             Set<String> similar2 = new TreeSet<>();
             for (String s : similar) {
-                similar2.addAll(this.getDeletion(s));
-                similar2.addAll(this.getTransposition(s));
-                similar2.addAll(this.getAlteration(s));
-                similar2.addAll(this.getInsertion(s));
+                this.getDeletion(s, similar2);
+                this.getTransposition(s, similar2);
+                this.getAlteration(s, similar2);
+                this.getInsertion(s, similar2);
                 for (String s2 : similar2) {
+                    c++;
                     found = this.trie.find(s2);
                     if (found != null) {
                         done = true;
@@ -87,16 +89,19 @@ public class Speller implements SpellCorrector {
             if (!done && distance >= maxDistance) {
                 done = true;
             }
+            System.out.printf("Distance: %d Max Distance: %d\n", distance, maxDistance);
+            similar.clear();
             similar = similar2;
         }
         if (maxString == null)
             throw new spell.SpellCorrector.NoSimilarWordFoundException();
-        
+
+        System.out.printf("words tried: %d\n", c);
         return maxString;
     }
     
-    private Set<String> getDeletion(String word) {
-        Set<String> dList = new TreeSet<>();
+    private Set<String> getDeletion(String word, Set<String> dList) {
+//        Set<String> dList = new TreeSet<>();
         StringBuilder tWord = new StringBuilder(word);
         for (int i = 0; i < word.length(); i++) {
             char tchar = word.charAt(i);
@@ -106,8 +111,8 @@ public class Speller implements SpellCorrector {
         return dList;
     }
     
-    private Set<String> getTransposition(String word) {
-        Set<String> arrr = new TreeSet<>();
+    private Set<String> getTransposition(String word, Set<String> arrr) {
+//        Set<String> arrr = new TreeSet<>();
         StringBuilder tWord = new StringBuilder(word);
         for (int i = 0; i < word.length() - 1; i++) {
             char tchar0 = word.charAt(i);
@@ -121,8 +126,8 @@ public class Speller implements SpellCorrector {
         return arrr;
     }
     
-    private Set<String> getAlteration(String word) {
-        Set<String> arroo = new TreeSet<>();
+    private Set<String> getAlteration(String word, Set<String> arroo) {
+//        Set<String> arroo = new TreeSet<>();
         StringBuilder tWord = new StringBuilder(word);
         for (int i = 0; i < word.length(); i++) {
             char c = word.charAt(i);
@@ -136,8 +141,8 @@ public class Speller implements SpellCorrector {
         return arroo;
     }
     
-    private Set<String> getInsertion(String word) {
-        Set<String> argh = new TreeSet<>();
+    private Set<String> getInsertion(String word, Set<String> argh) {
+//        Set<String> argh = new TreeSet<>();
         StringBuilder tWord = new StringBuilder(word);
         for (int i = 0; i < word.length() + 1; i++) {
             for (int j = 0; j < 26; j++) {

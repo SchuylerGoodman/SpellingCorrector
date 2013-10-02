@@ -20,13 +20,28 @@ public class WordTrie implements Trie {
 
     @Override
     public void add(String word) {
-        char[] lWord = word.toLowerCase().toCharArray();
+//        char[] lWord = word.toLowerCase().toCharArray();
         if (this.root == null) {
             this.root = new WordNode();
             this.nodeCount++;
         }
         WordNode currentNode = root;
-        for (char c : lWord) {
+//        for (char c : lWord) {
+//            boolean nodeAdd = currentNode.add(c);
+//            if (nodeAdd) {
+//                this.nodeCount++;
+//            }
+//            if (currentNode.at(c) != null) {
+//                currentNode = currentNode.at(c);
+//            }
+//            else {
+//                System.out.printf("In WordTrie.add: Error occured at char %c for string %s.\n", c, word);
+//                System.exit(0);
+//            }
+//        }
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
+            c = Character.toLowerCase(c);
             boolean nodeAdd = currentNode.add(c);
             if (nodeAdd) {
                 this.nodeCount++;
